@@ -4,17 +4,59 @@
 #include <iostream>
 using namespace std;
 
+void showArray(const int* p, int size)
+{
+    if (p == nullptr) return;
+
+    for (int i = 0; i < size; i++)
+    {
+        cout << p[i] << "(" << i << "), ";
+    }
+    cout << endl;
+}
+
+int linearSearch(const int* p, int size, int target)
+{
+    if (p == nullptr) return -1;
+
+    for (int i = 0; i<size; i++)
+    {
+        if (p[i] == target)
+        {
+            return i;
+        }
+    }
+    return -1;
+}
+
+// ここの数値を変えるだけで処理がしっかり変わる。
+const int ARR_SIZE = 30;
+
 int main()
 {
-    int box[10] = { 4, 15, 16, 3, 1, 10, 11, 15, 2, 20 };
+    srand((unsigned int)time(NULL));
 
-    for (int i = 0; i < 10; i++)
+    // 配列を乱数初期化と、探す対象も乱数でもとめとく。
+    int arr[ARR_SIZE] = {0};
+    for (int i = 0; i < ARR_SIZE; i++)
     {
-        if (box[i] == 3)
-        {
-            cout << i << "番目に見つかったよ" << endl;
-            break;
-        }
+        arr[i] = rand() % 100;
+    }
+    int target = rand() % 100;
+
+    // デバッグのため探す対象と配列の中身を表示
+    cout << "target=" << target << endl;
+    showArray(arr, ARR_SIZE);
+
+    // 自作線形探索関数を呼び出して、結果を表示する。
+    int r = linearSearch(arr, ARR_SIZE, target);
+    if (r == -1)
+    {
+        cout << "ないで。" << endl;
+    }
+    else
+    {
+        cout << r << "番目に見つかったで。" << endl;
     }
 
 }
